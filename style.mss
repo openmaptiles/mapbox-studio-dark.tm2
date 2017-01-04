@@ -30,7 +30,7 @@ maintain or invert existing value (light to dark) scale.
 Map { background-color: @land; }
 
 // Political boundaries //
-#admin[admin_level=2][maritime=0] {
+#boundary[admin_level=2] {
   line-join: round;
   line-color: @fill5;
   line-width: 1;
@@ -38,10 +38,9 @@ Map { background-color: @land; }
   [zoom>=6] { line-width: 1.8; }
   [zoom>=8] { line-width: 2; }
   [zoom>=10] { line-width: 3; }
-  [disputed=1] { line-dasharray: 4,4; }
 }
 
-#admin[admin_level>2][maritime=0] {
+#boundary[admin_level=4] {
   line-join: round;
   line-color: @fill5;
   line-width: 1;
@@ -50,17 +49,17 @@ Map { background-color: @land; }
   [zoom>=8] { line-width: 1.8; }
 }
 
-// Land Features //
-#landuse[class='cemetery'],
-#landuse[class='park'],
-#landuse[class='wood'],
-#landuse_overlay {
+#landcover[class='wood'],
+#landcover[class='wetland'],
+#landuse[class='cemetery']
+#park
+{
   polygon-fill: darken(@land,3);
   [zoom>=15] { polygon-fill:mix(@land,@fill4,95); }
 }
 
-#landuse[class='pitch'],
-#landuse[class='sand'] { 
+//TODO: Do we have Pitch?
+#landcover[class='sand'] {
   polygon-fill: mix(@land,@fill4,90);
 }
 
@@ -76,16 +75,16 @@ Map { background-color: @land; }
 }
 
 #aeroway {
-  ['mapnik::geometry_type'=3][type!='apron'] { 
+  ['mapnik::geometry_type'=3][class!='apron'] { 
     polygon-fill: mix(@fill2,@land,25);
     [zoom>=16]{ polygon-fill: mix(@fill2,@land,50);}
   }
   ['mapnik::geometry_type'=2] { 
     line-color: mix(@fill2,@land,25);
     line-width: 1;
-    [zoom>=13][type='runway'] { line-width: 4; }
+    [zoom>=13][class='runway'] { line-width: 4; }
     [zoom>=16] {
-      [type='runway'] { line-width: 6; }
+      [class='runway'] { line-width: 6; }
       line-width: 3;
       line-color: mix(@fill2,@land,50);
     }
@@ -115,15 +114,15 @@ Map { background-color: @land; }
 @water: #2e2e2e;
 
 #waterway {
-  [type='river'],
-  [type='canal'] {
+  [class='river'],
+  [class='canal'] {
     line-color: @water;
     line-width: 0.5;
     [zoom>=12] { line-width: 1; }
     [zoom>=14] { line-width: 2; }
     [zoom>=16] { line-width: 3; }
   }
-  [type='stream'] {
+  [class='stream'] {
     line-color: @water;
     line-width: 0.5;
     [zoom>=14] { line-width: 1; }

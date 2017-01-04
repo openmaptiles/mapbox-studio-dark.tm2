@@ -20,10 +20,9 @@ layers: null
 maxzoom: 22
 minzoom: 0
 name: Mapbox Dark
-source: "mapbox:///mapbox.mapbox-terrain-v2,mapbox.mapbox-streets-v6"
+source: "http://openmaptiles.org/cdn.json"
 styles: 
   - style.mss
   - labels.mss
   - roads.mss
-  - terrain.mss
 template: ''
